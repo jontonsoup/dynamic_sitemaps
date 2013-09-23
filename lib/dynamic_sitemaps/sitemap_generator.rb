@@ -57,12 +57,22 @@ module DynamicSitemaps
       file.puts lines
     end
 
-    def handle_collection
-      sitemap.collection.find_each do |record|
-        if sitemap.block
-          instance_exec record, &sitemap.block
-        else
-          url record, last_mod: (record.respond_to?(:updated_at) ? record.updated_at : nil)
+      def handle_collection
+      if sitemap.collection.first.is_a?(Course)
+        sitemap.collection.each do |record|
+          if sitemap.block
+            instance_exec record, &sitemap.block
+          else
+            url record, last_mod: (record.respond_to?(:updated_at) ? record.updated_at : nil)
+          end
+        end
+      else
+        sitemap.collection.find_each do |record|
+          if sitemap.block
+            instance_exec record, &sitemap.block
+          else
+            url record, last_mod: (record.respond_to?(:updated_at) ? record.updated_at : nil)
+          end
         end
       end
     end
