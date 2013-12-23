@@ -103,7 +103,7 @@ module DynamicSitemaps
     end
 
     def temp_path
-      @temp_path ||= Rails.root.join("tmp", "dynamic_sitemaps").to_s
+      @temp_path ||= Rails.root.join("tmp1", "dynamic_sitemaps").to_s
     end
 
     # Resets all instance variables. Used for testing.
